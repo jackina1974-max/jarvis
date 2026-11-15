@@ -8,7 +8,10 @@ from aiogram.fsm.state import State, StatesGroup
 # ==========================================
 # ВСТАВЬ СВОЙ ТОКЕН СЮДА (между кавычками!)
 # ==========================================
-BOT_TOKEN = "8555105722:AAHfKRi6q7OATygH9vIQWT4Z81xFfjT88rA"
+BOT_TOKEN = import os
+from dotenv import load_dotenv
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Настройка бота
 bot = Bot(token=BOT_TOKEN)
