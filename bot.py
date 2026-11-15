@@ -1,22 +1,19 @@
+import os
 import asyncio
 import logging
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-# ==========================================
-# ВСТАВЬ СВОЙ ТОКЕН СЮДА (между кавычками!)
-# ==========================================
-BOT_TOKEN = import os
-from dotenv import load_dotenv
+# Загружаем токен из скрытого файла .env
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Настройка бота
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-
 
 # Класс для хранения состояний (чтобы бот помнил, что мы ввели)
 class CalcStates(StatesGroup):
