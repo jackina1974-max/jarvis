@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5f2">
+  <title>Калькулятор стоимости</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background: #f7f5f2;
+      color: #292623;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .calculator {
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+      background: #ffffff;
+      border: 1px solid #eee9e4;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(49, 39, 29, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 28px;
+      font-size: clamp(26px, 6vw, 32px);
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    select {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 14px;
+      border: 1px solid #ded8d1;
+      border-radius: 12px;
+      background: #fff;
+      color: #292623;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    select:focus,
+    input:focus-visible,
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(174, 126, 91, 0.35);
+      outline-offset: 2px;
+    }
+
+    .options {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid #eee9e4;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #c9a88e;
+      background: #fcfaf8;
+    }
+
+    .option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: #9a6848;
+      cursor: pointer;
+    }
+
+    .option-text {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 15px;
+    }
+
+    .option-price {
+      color: #766c63;
+      white-space: nowrap;
+    }
+
+    button,
+    .booking-link {
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button {
+      background: #9a6848;
+      color: #fff;
+    }
+
+    button:hover {
+      background: #82563b;
+      transform: translateY(-1px);
+    }
+
+    .result {
+      min-height: 28px;
+      margin: 20px 0 14px;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .booking-link {
+      background: #f1e9e2;
+      color: #68452f;
+    }
+
+    .booking-link:hover {
+      background: #e9ddd3;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .calculator {
+        padding: 24px 20px;
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="calculator">
+    <h1>Калькулятор стоимости</h1>
+
+    <label class="field-label" for="service">Выберите услугу</label>
+    <select id="service">
+      <option value="2000">Маникюр — 2000 руб.</option>
+      <option value="3000">Педикюр — 3000 руб.</option>
+      <option value="4000">Наращивание — 4000 руб.</option>
+    </select>
+
+    <div class="options" aria-label="Дополнительные услуги">
+      <label class="option">
+        <input type="checkbox" id="removal" value="500">
+        <span class="option-text">
+          <span>Снятие покрытия</span>
+          <span class="option-price">+500 руб.</span>
+        </span>
+      </label>
+
+      <label class="option">
+        <input type="checkbox" id="design" value="1000">
+        <span class="option-text">
+          <span>Дизайн</span>
+          <span class="option-price">+1000 руб.</span>
+        </span>
+      </label>
+    </div>
+
+    <button type="button" id="calculateButton">Рассчитать</button>
+
+    <p class="result" id="result" aria-live="polite"></p>
+
+    <a
+      class="booking-link"
+      href="https://t.me/твой_никнейм"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Записаться
+    </a>
+  </main>
+
+  <script>
+    const serviceSelect = document.getElementById("service");
+    const removalCheckbox = document.getElementById("removal");
+    const designCheckbox = document.getElementById("design");
+    const calculateButton = document.getElementById("calculateButton");
+    const result = document.getElementById("result");
+
+    calculateButton.addEventListener("click", () => {
+      let total = Number(serviceSelect.value);
+
+      if (removalCheckbox.checked) {
+        total += Number(removalCheckbox.value);
+      }
+
+      if (designCheckbox.checked) {
+        total += Number(designCheckbox.value);
+      }
+
+      result.textContent = `Итого: ${total.toLocaleString("ru-RU")} руб.`;
+    });
+  </script>
+</body>
+</html>

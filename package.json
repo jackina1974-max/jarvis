@@ -1,0 +1,19 @@
+{
+  "name": "multiagent-basic",
+  "version": "1.1.0",
+  "description": "Учебный базовый мультиагент: диспетчер делегирует один запрос нескольким субагентам. Адаптирован под локальный запуск в Windows без зависимостей.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "demo": "node src/index.js --demo \"Хочу сделать сайт для стоматологии с калькулятором стоимости\"",
+    "content": "node src/content-pipeline.js",
+    "content:demo": "node src/content-pipeline.js --demo \"5 ошибок малого бизнеса при внедрении ИИ\"",
+    "content:auto": "node src/content-scheduler.js --once",
+    "content:scheduler": "node src/content-scheduler.js",
+    "content:scheduler:now": "node src/content-scheduler.js --now",
+    "check": "node src/index.js --check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

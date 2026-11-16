@@ -1,0 +1,17 @@
+# Секреты и локальные настройки
+.env
+.env.local
+.env.*.local
+
+# Зависимости
+node_modules/
+
+# Результаты прогонов и логи
+outputs/
+output/
+*.log
+
+# Системный мусор
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv AGENTS.md CLAUDE.md)",
+      "Bash(mv CODEX_CONTENT_WORKFLOW.md CLAUDE_CONTENT_WORKFLOW.md)",
+      "Bash(npm run *)",
+      "WebSearch",
+      "Read(//Users/kseniastreltsova/.nvm/versions/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(find / -name \"node\" -type f 2>/dev/null | grep -v node_modules | head -20; echo \"===NVM===\"; ls -la ~/.nvm 2>/dev/null | head; echo \"===zshrc===\"; grep -i \"node\\\\|nvm\\\\|path\" ~/.zshrc ~/.zprofile 2>/dev/null | head -20)",
+      "Read(//Users/kseniastreltsova/**)",
+      "Bash(open ~/Documents/мультиагенты/цветочный-магазин/index.html)"
+    ],
+    "additionalDirectories": [
+      "/Users/kseniastreltsova/Documents/мультиагенты/цветочный-магазин",
+      "/Users/kseniastreltsova/Documents/мультиагенты"
+    ]
+  }
+}
